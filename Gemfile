@@ -51,3 +51,18 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# calil(図書館検索)
+gem 'calil'
+
+# 環境変数用
+gem 'dotenv-rails'
+
+# Railsで定義した変数をJavascript内で利用するため
+gem 'gon'
+
+# 楽天 API
+gem 'rakuten_web_service' , '1.5.0'
+
+# ページネーション
+gem 'kaminari'
