@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181120032424) do
+ActiveRecord::Schema.define(version: 20181120102058) do
 
   create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "isbn"
@@ -19,6 +19,30 @@ ActiveRecord::Schema.define(version: 20181120032424) do
     t.string   "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "price"
+    t.string   "author"
+    t.string   "caption"
+  end
+
+  create_table "my_conditions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.string   "systemid_for_calil"
+    t.string   "libid_for_calil"
+    t.string   "libname_for_calil"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["user_id"], name: "index_my_conditions_on_user_id", using: :btree
+  end
+
+  create_table "ownerships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "type"
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_ownerships_on_book_id", using: :btree
+    t.index ["user_id", "book_id", "type"], name: "index_ownerships_on_user_id_and_book_id_and_type", unique: true, using: :btree
+    t.index ["user_id"], name: "index_ownerships_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -29,4 +53,7 @@ ActiveRecord::Schema.define(version: 20181120032424) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "my_conditions", "users"
+  add_foreign_key "ownerships", "books"
+  add_foreign_key "ownerships", "users"
 end

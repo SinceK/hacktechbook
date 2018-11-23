@@ -1,0 +1,57 @@
+<%= include_gon %> 
+   
+<script type="text/javascript">
+
+	  //デフォルトの図書館ID(sysytemid)
+	  var systemid_list = [];
+
+	  //市町村選択時に実行される関数
+	  function on_select_city(systemid, pref){
+
+		  systemid_list = systemid;
+  		//log(pref);
+  		//log(systemid_list);
+  
+    $(systemid).each(function(i, systemid){
+	    $('.lib_select').append('<input type="hidden" name="referer['+i+']" value="' + systemid +'">');
+    });
+    
+    $('form').submit();
+  	}
+
+	  var city_selector = {};
+
+  	$(function(){
+  
+  		//市町村選択ダイアログ
+  		city_selector = new CalilCitySelectDlg({
+  			'appkey' : gon.calil_app_key,
+  			'select_func' : on_select_city
+  		});
+  		
+  		$("div#source_form").click(function(){
+  		});
+  	});
+  
+  
+  	//デバッグ用関数
+  	function log(text){
+  		try{
+  			console.log(text);
+  		}catch( e ){}
+  	}
+  	
+</script>
+
+<h3>検索条件設定</h3>
+<div class="row">
+  <div class="col-md-7">
+      <a href="javascript:city_selector.showDlg();" class="btn btn-small btn-default">
+        <i class="fa fa-search"></i> 都道府県から選ぶ</a>
+  </div>
+  <div class="lib_select-area">
+    <form method="post" name="myForm" action="/my_conditions/create" class="form-inline" style="padding: 0;">
+      <div class="lib_select"></div>
+    </form>
+  </div>
+</div>

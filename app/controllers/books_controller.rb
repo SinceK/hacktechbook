@@ -5,32 +5,25 @@ class BooksController < ApplicationController
     @books = []
     
     @title = params[:title]
+    
     if @title.present?
       results = RakutenWebService::Books::Book.search({
         title: @title,
-        #booksGenreId: '001005'
+        hits: 20,
+        booksGenreId: '001005'
       })
       
       results.each do |result|
-        book = Book.new(read(result))
+        book = Book.find_or_initialize_by(read(result))
         @books << book
       end
     end
   end
   
-  private
-
-  def read(result)
-    isbn = result['isbn']
-    title = result['title']
-    url = result['itemUrl']
-    image_url = result['mediumImageUrl'].gsub('?_ex=120x120', '')
-
-    {
-      isbn: isbn,
-      title: title,
-      url: url,
-      image_url: image_url,
-    }
+  def show
+    @book = Book.find(params[:id])
+    @want_users = @book.want_users
+    @have_users = @book.have_users
   end
+
 end

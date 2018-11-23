@@ -1,0 +1,66 @@
+<%= include_gon %> 
+   
+<script type="text/javascript">
+
+var city_selector = {};
+var systemid_list = [];
+var city = "";
+
+$(function(){
+  
+  // 市町村選択ダイアログ
+  city_selector = new CalilCitySelectDlg({
+  	'appkey' : gon.calil_app_key,
+  	'select_func' : on_select_city
+  });
+	
+  $('#js-from').submit(function(event) {
+    // HTMLでの送信をキャンセル
+    event.preventDefault();
+    var $form = $(this);
+    var authenticity_token = $('input:hidden[name="authenticity_token"]').val();
+   
+    // 送信
+    $.ajax({
+      url: $form.attr('action'),
+      type: $form.attr('method'),
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        city: city,
+        systemid_list: systemid_list,
+        authenticity_token: authenticity_token
+      }),
+      timeout: 10000
+    });
+  });
+  
+  $('.check-city').live('change', function(){
+      var items = $('form').find('.form-check-input');
+
+      if ($(this).is(':checked')) {
+        $(items).attr('checked', true);
+      } else {
+        $(items).attr('checked', false);
+      }
+  });
+});
+  	
+// 市町村選択時に実行される関数
+function on_select_city(systemid, pref){
+	systemid_list = systemid;
+	city = pref;
+  $('#js-from').submit();
+}
+</script>
+
+<h3>検索条件設定</h3>
+<div class="row">
+  <div class="col-md-7">
+    <a href="javascript:city_selector.showDlg();" class="btn btn-small btn-default">
+      <i class="fa fa-search"></i> 市区町村を選択してください</a>
+    <%= form_tag(url_for(:action => 'library_search'), id: "js-from") do %>
+    <% end %>
+    <div class="js-lib_area"></div>
+  </div>
+</div>

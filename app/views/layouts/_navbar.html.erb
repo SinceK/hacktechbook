@@ -22,9 +22,9 @@
               <ul class="dropdown-menu">
                 <li><a href="#">レビューランキング</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">欲しい！ランキング</a></li>
+                <li><%= link_to '欲しい！ランキング', rankings_want_path %></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">持ってる！ランキング</a></li>
+                <li><%= link_to '持ってる！ランキング', rankings_have_path %></li>
               </ul>
             </li>
 
@@ -42,7 +42,7 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <li><%= link_to '検索条件設定' %></li>
+                <li><%= link_to '検索条件設定', my_conditions_path %></li>
               </li>
               <li role="separator" class="divider"></li>
               <li>

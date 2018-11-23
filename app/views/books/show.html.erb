@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-1" style="text-align:left;padding-top:5px">
+    <%= link_to '前に戻る', :back %> 
+  </div>
+  <div class="col-md-10 book-detail">
+    <div class="col-md-5">
+      <div class="book">
+        <img src="<%= @book.image_url %>" alt="" class="book-image">
+        <%= link_to '楽天詳細ページへ', @book.url, target: '_blank', class: "btn btn-default link-rakuten" %>
+        
+        <div>
+          <h4 class="book-caption-title">商品説明</h4>
+          <p class="book-caption"><%= @book.caption %></p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-7">
+      <h2 class="book-title"><%= @book.title %></h2>
+      <p class="book-author"><i class="fa fa-user" style="color:#999"></i><%= @book.author %></p>
+      <div class="book-info-area">
+        <div class="rating-data">
+          <div class="box">☆☆☆☆☆ 5.0</div>
+          <div class="box"><a href="">100件のレビュー</a></div>
+        </div>
+        <div class="ownership-data">
+          <div id="want_count" class="status-value box"><%= @want_users.count %> 欲しい！</div>
+          <div id="have_count" class="status-value box"><%= @have_users.count %> 持ってる！</div>
+          <div class="buttons box">
+              <%= render 'ownerships/want_button', book: @book %>
+          </div>
+          <div class="buttons box">
+              <%= render 'ownerships/have_button', book: @book %>
+          </div>
+          <div class="review-area">
+            <a href="" class="btn btn-small btn-default">
+            <i class="fa fa-edit"></i>レビューを書く</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,11 @@ footer {
   margin-top: 40px;
 }
 
+hr {
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #fff;
+}
+
 /* navbar */
 .navbar {
   background-color: #fff;
@@ -51,21 +56,101 @@ footer {
 
 /* book */
 .book .panel-body {
-  height: 70px;
+  height: 120px;
 }
+
 .book .panel-heading {
   height: 250px;
 }
+
 .book .panel-heading img {
   height: 100%;
   max-width: 100%;
 }
+
+.book-detail .book {
+  text-align: center;
+}
+
 p.book-title {
   /* 文の行数を2行に保ち、最後に ... を追加するスタイル */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+}
+
+.book .buttons form {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+/* book show */
+
+.book-image {
+  width: 250px;
+  margin-top: 0px;
+  border: 1px solid #c9c9c9;
+  box-shadow: 1px 1px 4px #8a8a8a;
+}
+
+.link-rakuten {
+  width: 250px;
+  margin-top: 10px;
+}
+
+.book-caption-title, .book-caption {
+  text-align: left;
+}
+
+.rating-data, .ownership-data {
+  margin: 5px 15px 5px 0;
+}
+
+.box {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.review-area {
+  margin: 20px 0 10px 0;
+}
+
+.lib_select-area {
+  /*display: none;*/
+}
+
+
+/* users */
+.user-profile .name {
+  margin-bottom: 20px;
+}
+.user-profile .name h1 {
+  text-shadow: 1px 1px 1px #fff;
+  font-weight: bold;
+}
+.user-profile .status ul {
+  margin: 0 auto 10px;
+  padding: 0;
+  display: table;
+}
+.user-profile .status ul li {
+  width: 120px;
+  padding: 5px 0;
+  border-right: 1px solid #ddd;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: #777;
+}
+.user-profile .status ul li:last-child {
+  border: none;
+}
+.user-profile .status ul li .status-label {
+  font-size: 12px;
+}
+.user-profile .status ul li .status-value {
+  font-size: 18px;
 }
 
 .form-search {

@@ -66,3 +66,6 @@ gem 'rakuten_web_service' , '1.5.0'
 
 # ページネーション
 gem 'kaminari'
+
+# Debug用
+gem 'pry-byebug', group: :development
