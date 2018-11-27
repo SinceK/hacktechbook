@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :want_books, through: :wants, class_name: 'Book', source: :book
   has_many :haves, class_name: 'Have'
   has_many :have_books, through: :haves, class_name: 'Book', source: :book
+  has_many :my_conditions
+  has_many :reviews
+  has_many :review_books, through: :reviews, class_name: 'Book', source: :book
   
   def want(book)
     self.wants.find_or_create_by(book_id: book.id)

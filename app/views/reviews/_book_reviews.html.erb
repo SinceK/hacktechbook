@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><%= @review_users.count %>件のレビュー</div>
+  <% if book_reviews.present? %>
+    <% book_reviews.each do |book_review| %>
+      <div class="panel-body">
+        <div class="panel panel-default review-panel">
+          <div class="panel-body">
+            <p>評価：<span class="set_star" data-score="<%= book_review.rating %>"></span></p>
+            <p><%= book_review.review %></p>
+            <div class="text-right">
+              <ul class="list-inline">
+                <li><%= book_review.created_at.strftime('%Y年%m月%d日') %></li>
+                <li><%= User.find(book_review.user_id).name %></li>
+                <% if current_user == book_review.user %>
+                  <li><%= link_to '削除', book_review, method: :delete, data: { confirm: "このレビューを本当に削除しますか?" }, class: 'btn btn-danger btn-xs' %></li>
+                <% end %>
+              </ul>
+            </div>
+        </div>
+      </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

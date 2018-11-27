@@ -1,0 +1,20 @@
+<div class="col-md-12">
+<hr>
+  <div class="form-group">
+    <%= check_box_tag 'check-all', 'check-all', false, class: 'js-check-all form-check-input position-static' %>
+    <label>全てチェック</label>
+  </div>
+  <%= form_tag(my_conditions_path, method: :post, id: 'js-cities-form') do %>
+    <% if cities.present? %>
+      <% cities.keys.each_with_index do |key, i| %>
+        <div class="form-group check-cities">
+          <%= check_box_tag "my_conditions[][systemid_for_calil]", cities[key].first.systemid, @my_conditions_systemid.present? ? @my_conditions_systemid.include?(cities[key].first.systemid) : false, class: 'form-check-input position-static' %>
+          <%= cities[key].first.systemname %>
+          <%= hidden_field_tag "my_conditions[][systemname_for_calil]", cities[key].first.systemname %>
+          <%= hidden_field_tag "my_conditions[][prefecture_name]", cities[key].first.pref %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= button_tag '登録する', class: 'btn btn-success' %>
+  <% end %>
+</div>

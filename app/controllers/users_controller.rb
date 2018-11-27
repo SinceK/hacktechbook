@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     @books = @user.books.uniq
     @count_want = @user.want_books.count
     @count_have = @user.have_books.count
+    @count_review = @user.review_books.count
   end
 
   def new

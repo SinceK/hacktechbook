@@ -8,4 +8,9 @@ class RankingsController < ApplicationController
     @ranking_counts = Have.ranking
     @books = Book.find(@ranking_counts.keys)
   end
+  
+  def review
+    @ranking_reviews = Review.ranking
+    @books = Book.find(@ranking_reviews.keys)
+  end
 end
