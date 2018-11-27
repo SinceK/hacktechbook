@@ -2,10 +2,6 @@ class Book < ApplicationRecord
   validates :isbn, presence: true, length: { maximum: 13 }
   validates :title, presence: true, length: { maximum: 255 }
   validates :url, presence: true, length: { maximum: 255 }
-  validates :image_url, length: { maximum: 255 }
-  validates :price, presence: true, length: { maximum: 255 }
-  validates :author, presence: true, length: { maximum: 255 }
-  validates :caption, presence: true
   
   has_many :ownerships
   has_many :users, through: :ownerships

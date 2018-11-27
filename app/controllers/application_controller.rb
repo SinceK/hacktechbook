@@ -21,12 +21,14 @@ class ApplicationController < ActionController::Base
       image_url = result['mediumImageUrl'].gsub('?_ex=120x120', '')
     elsif result['smallImageUrl'].present?
       image_url = result['smallImageUrl'].gsub('?_ex=64x64', '')
+    elsif result['largeImageUrl'].present?
+      image_url = result['largeImageUrl'].gsub('?_ex=200x200', '')
     else
       image_url = ""
     end
-    author = result['author']
-    caption = result['itemCaption']
-    price = result['itemPrice']
+    author = result['author'].present? ? result['author'] : ''
+    caption = result['itemCaption'].present? ? result['itemCaption'] : ''
+    price = result['itemPrice'].present? ? result['itemPrice'] : ''
 
     {
       isbn: isbn,

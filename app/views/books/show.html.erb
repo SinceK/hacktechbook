@@ -49,7 +49,7 @@ $(function(){
     <div class="col-md-5 book-image-wrap">
       <div class="book">
         <img src="<%= @book.image_url %>" alt="" class="book-image">
-        <p><%= link_to '楽天詳細ページへ', @book.url, target: '_blank', class: "btn btn-default link-rakuten" %></p>
+        <p><%= link_to "楽天詳細ページへ  ¥#{@book.price.to_i.to_s(:delimited)}より", @book.url, target: '_blank', class: "btn btn-default link-rakuten" %></p>
       </div>
     </div>
     <div class="col-md-7 book-detail-wrap">
@@ -92,7 +92,7 @@ $(function(){
         <div class="caption-area">
           <div class="panel panel-default">
             <div class="panel-heading">商品説明</div>
-            <div class="panel-body"><%= @book.caption %></div>
+            <div class="panel-body"><%= @book.caption.present? ? @book.caption : '記載なし' %></div>
           </div>
         </div>
         <div class="calil_area">
