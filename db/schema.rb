@@ -27,10 +27,11 @@ ActiveRecord::Schema.define(version: 20181120102058) do
   create_table "my_conditions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.string   "systemid_for_calil"
-    t.string   "libid_for_calil"
-    t.string   "libname_for_calil"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "systemname_for_calil"
+    t.string   "prefecture_name"
+    t.index ["user_id", "systemid_for_calil"], name: "index_my_conditions_on_user_id_and_systemid_for_calil", unique: true, using: :btree
     t.index ["user_id"], name: "index_my_conditions_on_user_id", using: :btree
   end
 

@@ -1,66 +1,115 @@
-<%= include_gon %> 
-   
 <script type="text/javascript">
-
-var city_selector = {};
-var systemid_list = [];
-var city = "";
 
 $(function(){
   
-  // 市町村選択ダイアログ
-  city_selector = new CalilCitySelectDlg({
-  	'appkey' : gon.calil_app_key,
-  	'select_func' : on_select_city
-  });
-	
-  $('#js-from').submit(function(event) {
-    // HTMLでの送信をキャンセル
-    event.preventDefault();
-    var $form = $(this);
-    var authenticity_token = $('input:hidden[name="authenticity_token"]').val();
-   
-    // 送信
-    $.ajax({
-      url: $form.attr('action'),
-      type: $form.attr('method'),
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        city: city,
-        systemid_list: systemid_list,
-        authenticity_token: authenticity_token
-      }),
-      timeout: 10000
-    });
+  // 市区町村取得
+  findCity();
+  
+  /*
+  * 都道府県リスト変更時処理 
+  */
+  $('#prefecture_name').on('change', function() {
+    // 市区町村取得
+    findCity();
   });
   
-  $('.check-city').live('change', function(){
+  /*
+  * 全て選択チェックボックス押下時処理 
+  */
+  $('.js-cities_area').on('click', '.js-check-all', function(){
       var items = $('form').find('.form-check-input');
-
       if ($(this).is(':checked')) {
-        $(items).attr('checked', true);
+        $(items).prop('checked', true);
       } else {
-        $(items).attr('checked', false);
+        $(items).prop('checked', false);
       }
   });
+  
+  /*
+  * 登録ボタン押下時処理 
+  */
+  $('.js-cities_area').on('submit', '#js-cities-form', function(){
+    $(this).find("input[type='checkbox']").each(function(i, elem) {
+      if (!elem.checked) {
+        elem.disabled = true;
+        $(this).next("input[name*=systemname_for_calil]").prop('disabled', true);
+        $(this).next("input[name*=systemname_for_calil]").next("input[name*=prefecture_name]").prop('disabled', true);
+      }
+    });
+    $(this).submit();
+    return false;
+  });
+
 });
-  	
-// 市町村選択時に実行される関数
-function on_select_city(systemid, pref){
-	systemid_list = systemid;
-	city = pref;
-  $('#js-from').submit();
+
+/*
+* 市区町村取得
+*/
+function findCity()
+{
+  var pref = $('#prefecture_name  option:selected').val();
+  
+  if (!pref) {
+    return;
+  }
+ 
+  // 処理前に Loading 画像を表示
+  dispLoading("市区町村取得中...");
+  
+  $.ajax({
+    url: 'my_conditions/cities_select/',
+    type: 'get',
+    data: {pref: pref},
+    // 通信成功時の処理
+    success: function(result, textStatus, xhr) {
+    },
+    // 通信失敗時の処理
+    error: function(xhr, textStatus, error) {
+      alert('市区町村の取得に失敗しました。');
+    },
+    complete: function() {
+      // Lading 画像を消す
+      removeLoading();
+    }
+  });
 }
+
+/*
+* ローディング画面表示 
+*/
+function dispLoading(msg) {
+  if(msg == undefined) {
+    msg = "";
+  }
+  // 画面表示メッセージ
+  var dispMsg = "<div class='loadingMsg'>" + msg + "</div>";
+  // ローディング画像が表示されていない場合のみ出力
+  if ($("#loading").length == 0) {
+    $("body").append("<div id='loading'>" + dispMsg + "</div>");
+  }
+}
+ 
+/*
+* ローディング画面停止 
+*/
+function removeLoading() {
+  $("#loading").remove();
+}
+  
 </script>
 
 <h3>検索条件設定</h3>
 <div class="row">
-  <div class="col-md-7">
-    <a href="javascript:city_selector.showDlg();" class="btn btn-small btn-default">
-      <i class="fa fa-search"></i> 市区町村を選択してください</a>
-    <%= form_tag(url_for(:action => 'library_search'), id: "js-from") do %>
-    <% end %>
-    <div class="js-lib_area"></div>
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= select_tag :prefecture_name, 
+          options_for_select(
+            JpPrefecture::Prefecture.all.map {|prefecture| [prefecture.name, prefecture.name]},
+            :selected => @my_conditions.present? ? @my_conditions.first.prefecture_name : ""),
+            :prompt => "都道府県を選択してください", class: "form-control" %>
+      </div>
+    </div>
+    <div class="js-cities_area"></div>
   </div>
 </div>

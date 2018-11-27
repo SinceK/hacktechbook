@@ -1,62 +1,55 @@
 class MyConditionsController < ApplicationController
-  
+  before_action :require_user_logged_in
+
   def index
-    gon.calil_app_key = ENV['CALIL_APP_KEY']
-    @title = params[:title]
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @my_conditions = MyCondition.where(user_id: current_user.id)
+    @my_conditions_systemid = @my_conditions.pluck("systemid_for_calil")
   end
   
   def show
   end
   
   def create
-    @my_conditions = MyCondition.new(my_conditions_params)
+    MyCondition.transaction do
+      MyCondition.destroy_all(user_id: current_user.id)
+
+      if params['my_conditions'].present?
+        my_conditions_params.each do |param|
+          MyCondition.create(param)
+        end
+      end
+    end
     
-    #if @my_conditions.save
-      flash[:success] = '検索条件を登録しました。'
-      redirect_to @my_conditions
-    #else
-      #flash.now[:danger] = '検索条件の登録に失敗しました。'
+    flash[:success] = '検索条件を登録しました。'
+    redirect_to my_conditions_url
+    return
+    
+    rescue => e
+      flash.now[:danger] = '検索条件の登録に失敗しました。' + e.message
       render :index
-    #end
   end
   
-  def library_search
-    
+  def cities_select
+    @cities = []
+    @my_conditions_systemid = []
     if request.xhr?
-      systemid_list = params["systemid_list"]
-      @city = params["city"]
-      
-      @libraries = []
-      
-      if systemid_list.present?
-        # いったん専門と大学は除く
-        systemid_list.reject! {|systemid| systemid.include?("Special") || systemid.include?("Univ")}
-        
-        systemid_list.each do |systemid|
-          @libraries = Calil::Library.find(systemid: systemid)
-          
-          #@libraries << libraries
-
-        end
+      pref = params['pref']
+      if pref.present?
+        @my_conditions_systemid = MyCondition.where(user_id: current_user.id)
+          .select("systemid_for_calil").pluck("systemid_for_calil")
+        @cities = Calil::Library.find({pref: pref}).group_by { |item| item.systemid }
+        @cities.reject! { |item| item.include?("Special") || item.include?("Univ") }
       end
     end
   end
   
   private
-  
-  
-# user_id
-# systemid_for_calil
-# libid_for_calil
-
-# libname_for_calil 
 
   def my_conditions_params
-    binding.pry
-    params.require(:my_conditions).map { |u| u.permit([:systemid_for_calil], [:libid_for_calil], [:libname_for_calil]) }
+    params.require(:my_conditions).map do |param|
+      ActionController::Parameters.new(param.to_hash).permit(
+        :systemid_for_calil, :systemname_for_calil, :prefecture_name
+      ).merge(user_id: current_user.id)
+    end
   end
 end

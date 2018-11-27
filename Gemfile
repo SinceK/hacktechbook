@@ -47,6 +47,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # Debug用
+  gem 'pry-byebug'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -67,5 +70,5 @@ gem 'rakuten_web_service' , '1.5.0'
 # ページネーション
 gem 'kaminari'
 
-# Debug用
-gem 'pry-byebug', group: :development
+# 都道府県一覧取得用
+gem 'jp_prefecture'

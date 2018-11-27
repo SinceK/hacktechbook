@@ -1,4 +1,18 @@
-@charset "utf-8";
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
 
 /* body */
 body {
@@ -68,8 +82,12 @@ hr {
   max-width: 100%;
 }
 
-.book-detail .book {
+.book-image-wrap .book {
   text-align: center;
+}
+
+.book-detail-wrap {
+  padding-left: 0;
 }
 
 p.book-title {
@@ -85,8 +103,6 @@ p.book-title {
   margin: 0 5px;
 }
 
-/* book show */
-
 .book-image {
   width: 250px;
   margin-top: 0px;
@@ -99,27 +115,48 @@ p.book-title {
   margin-top: 10px;
 }
 
-.book-caption-title, .book-caption {
-  text-align: left;
+.book-title {
+  margin-top: 0;
 }
 
-.rating-data, .ownership-data {
+.caption-area {
+  margin-top: 20px;
+}
+
+.rating-area {
   margin: 5px 15px 5px 0;
 }
 
-.box {
-  display: inline-block;
-  margin-right: 15px;
+.calil_banner {
+  margin: 0 15px 15px 0;
 }
 
-.review-area {
-  margin: 20px 0 10px 0;
+.review-panel {
+  margin-bottom: 0;
 }
 
-.lib_select-area {
-  /*display: none;*/
+#loading {
+  display: table;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  opacity: 0.8;
+}
+ 
+#loading .loadingMsg {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 140px;
+  background: url("/images/gif-load.gif") center center no-repeat;
 }
 
+.check-cities {
+  margin-left: 1em;
+}
 
 /* users */
 .user-profile .name {
