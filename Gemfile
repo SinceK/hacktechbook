@@ -72,3 +72,7 @@ gem 'kaminari'
 
 # 都道府県一覧取得用
 gem 'jp_prefecture'
+
+group :production do
+  gem 'pg', '0.21.0'
+end
