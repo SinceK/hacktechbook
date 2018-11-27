@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+body {
+  background: #06CC8A;
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.user-panel {
+  margin: 20px auto;
+}

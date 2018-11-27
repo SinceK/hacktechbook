@@ -1,0 +1,29 @@
+<h3>持ってる！ランキング</h3>
+<% if books.present? %>
+  <div class="row">
+    <% books.each_with_index do |book, index| %>
+      <div class="book">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading text-center">
+              <img src="<%= book.image_url %>" alt="" >
+            </div>
+            <div class="panel-body">
+              <p class="book-title"><%= link_to book.title, book %></p>
+              <div class="buttons text-center">
+                <% if logged_in? %>
+                  <%= render 'ownerships/want_button', book: book %>
+                  <%= render 'ownerships/have_button', book: book %>
+                <% end %>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <p class="text-center"><%= index+1 %>位</p>
+              <p class="text-center"><%= ranking_counts[book.id] %> 持ってる！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

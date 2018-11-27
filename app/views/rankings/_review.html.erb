@@ -1,0 +1,48 @@
+<script>
+$(function(){
+  
+    $('.set_star').raty( {
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf : '<%= asset_path('star-half.png') %>',
+    readOnly: true,   //閲覧者によるスコアの変更不可  
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+  
+});
+</script>
+
+<h3>レビューランキング</h3>
+<% if books.present? %>
+  <div class="row">
+    <% books.each_with_index do |book, index| %>
+      <div class="book">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading text-center">
+              <img src="<%= book.image_url %>" alt="" >
+            </div>
+            <div class="panel-body">
+              <p class="book-title"><%= link_to book.title, book %></p>
+              <div class="buttons text-center">
+                <% if logged_in? %>
+                  <%= render 'ownerships/want_button', book: book %>
+                  <%= render 'ownerships/have_button', book: book %>
+                <% end %>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <p class="text-center"><%= index+1 %>位</p>
+              <ul class="list-inline text-center">
+                <li class="set_star" data-score="<%= ranking_reviews[book.id].to_f.to_s %>"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

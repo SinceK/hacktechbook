@@ -1,4 +1,6 @@
 class OwnershipsController < ApplicationController
+  before_action :require_user_logged_in
+  
   def create
     @book = Book.find_or_initialize_by(isbn: params[:isbn])
 

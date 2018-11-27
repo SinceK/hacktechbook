@@ -2,10 +2,12 @@
   <div class="cover">
     <div class="cover-inner">
       <div class="cover-contents">
-        <h1>HackTechBook</h1>
+        <h1><img src="/images/logo.png" alt="HackTechBook"></h1>
       </div>
     </div>
   </div>
 <% end %>
 
-<p>テスト</p>
+<%= render 'rankings/review', books: @review_books, ranking_reviews: @ranking_reviews %>
+<%= render 'rankings/want', books: @want_books, ranking_counts: @want_ranking_counts %>
+<%= render 'rankings/have', books: @have_books, ranking_counts: @have_ranking_counts %>
