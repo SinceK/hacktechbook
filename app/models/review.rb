@@ -1,5 +1,5 @@
 class Review < ApplicationRecord
-  validates :review, presence: true, length: { maximum: 255 }
+  validates :review, presence: true
   validates :rating, presence: true
 
   belongs_to :user

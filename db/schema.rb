@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181126105844) do
+ActiveRecord::Schema.define(version: 20181127170124) do
 
   create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "isbn"
     t.string   "title"
     t.string   "url"
     t.string   "image_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "price"
     t.string   "author"
-    t.string   "caption"
+    t.text     "caption",    limit: 65535
   end
 
   create_table "my_conditions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 20181126105844) do
     t.integer  "user_id"
     t.integer  "book_id"
     t.integer  "rating"
-    t.string   "review"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "review",     limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["book_id"], name: "index_reviews_on_book_id", using: :btree
     t.index ["user_id", "book_id"], name: "index_reviews_on_user_id_and_book_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree

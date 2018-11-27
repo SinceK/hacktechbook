@@ -81,7 +81,7 @@ $(function(){
               <p>この本の評価：<span class="star"></span></p>
               <%= f.hidden_field :book_id, value: @book.id %>
               <div class="form-group">
-                <%= f.text_area :review, class: 'form-control', rows: '5', maxlength: '255', required: true %>
+                <%= f.text_area :review, class: 'form-control', rows: '5', required: true %>
               </div>
               <div class="text-right">
                 <%= f.submit '保存する', class: 'btn btn-primary' %>
@@ -98,7 +98,7 @@ $(function(){
         <div class="calil_area">
             <div class="panel panel-default">
               <div class="panel-heading">蔵書検索</div>
-              <% if @calil_books.present? %>
+              <% if @calil_books.present? && @my_conditions.present? %>
                 <% @calil_books.systems.each do |calil_book| %>
                   <div class="panel-body">
                     <ul class="list-inline">
@@ -111,6 +111,10 @@ $(function(){
                     </ul>
                   </div>
                 <% end %>
+              <% else %>
+                <div class="panel-body">
+                  <%= link_to '検索条件を設定する', my_conditions_path %>
+                </div>
               <% end %>
               <div class="text-right calil_banner">
                 <span>by </span><%= link_to image_tag('/images/calil_banner.gif'), "https://calil.jp/book/#{@book.isbn}", target: "_blank" %>
