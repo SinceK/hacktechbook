@@ -14,7 +14,6 @@
  *= require_self
  */
 
-/* body */
 body {
   background: #f2f2f2;
 }
@@ -65,17 +64,20 @@ hr {
   background: #06CC8A;
   background-size: cover;
 }
+
 .cover .cover-inner {
   height: 100%;
   margin: auto;
   display: table;
 }
+
 .cover .cover-inner .cover-contents {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   position: relative;
 }
+
 .cover .cover-inner .cover-contents h1 {
   margin: 0 0 20px 0;
   color: #fff;
@@ -83,7 +85,7 @@ hr {
   letter-spacing: 0.1em;
 }
 
-/* search */
+/* book search */
 .search {
   margin-bottom: 20px;
 }
@@ -174,6 +176,7 @@ p.book-title {
   background: url("/images/gif-load.gif") center center no-repeat;
 }
 
+/* my_Conditions */
 .check-cities {
   margin-left: 1em;
 }
@@ -182,15 +185,18 @@ p.book-title {
 .user-profile .name {
   margin-bottom: 20px;
 }
+
 .user-profile .name h1 {
   text-shadow: 1px 1px 1px #fff;
   font-weight: bold;
 }
+
 .user-profile .status ul {
   margin: 0 auto 10px;
   padding: 0;
   display: table;
 }
+
 .user-profile .status ul li {
   width: 120px;
   padding: 5px 0;
@@ -200,12 +206,15 @@ p.book-title {
   text-align: center;
   color: #777;
 }
+
 .user-profile .status ul li:last-child {
   border: none;
 }
+
 .user-profile .status ul li .status-label {
   font-size: 12px;
 }
+
 .user-profile .status ul li .status-value {
   font-size: 18px;
 }

@@ -2,7 +2,6 @@ class BooksController < ApplicationController
   
   def new
     @books = []
-    
     @title = params[:title]
     
     if @title.present?
@@ -31,7 +30,7 @@ class BooksController < ApplicationController
       # ユーザの検索条件取得
       @my_conditions = MyCondition.where(user_id: current_user.id)
       # システムIDの配列を生成
-      conditions_systemid = @my_conditions.map { |item| item["systemid_for_calil"] }
+      conditions_systemid = @my_conditions.pluck("systemid_for_calil")
       
       # 蔵書検索
       @calil_books = Calil::Book.find([@book["isbn"]], conditions_systemid).first
