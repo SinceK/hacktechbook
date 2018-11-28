@@ -28,7 +28,6 @@ hr {
 }
 
 /* navbar */
-
 .navbar {
   background-color: #06CC8A;
 }
@@ -157,6 +156,10 @@ p.book-title {
   margin-bottom: 0;
 }
 
+.book-review {
+  word-break: break-all;
+}
+
 #loading {
   display: table;
   width: 100%;
@@ -176,9 +179,12 @@ p.book-title {
   background: url("/images/gif-load.gif") center center no-repeat;
 }
 
-/* my_Conditions */
+/* my_conditions */
 .check-cities {
   margin-left: 1em;
+}
+.cities-list {
+  margin: 0 5px 5px 0;
 }
 
 /* users */

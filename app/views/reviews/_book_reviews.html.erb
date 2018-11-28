@@ -6,7 +6,7 @@
         <div class="panel panel-default review-panel">
           <div class="panel-body">
             <p>評価：<span class="set_star" data-score="<%= book_review.rating %>"></span></p>
-            <p><%= book_review.review %></p>
+            <p class="book-review"><%= book_review.review %></p>
             <div class="text-right">
               <ul class="list-inline">
                 <li><%= book_review.created_at.strftime('%Y年%m月%d日') %></li>
