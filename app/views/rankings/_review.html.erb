@@ -18,7 +18,7 @@ $(function(){
 <h3>レビューランキング</h3>
 <% if books.present? %>
   <div class="row">
-    <% books.each_with_index do |book, index| %>
+    <% books.each.with_index(1) do |book, i| %>
       <div class="book">
         <div class="col-md-3 col-sm-4 col-xs-12">
           <div class="panel panel-default">
@@ -35,7 +35,7 @@ $(function(){
               </div>
             </div>
             <div class="panel-footer">
-              <p class="text-center"><%= index+1 %>位</p>
+              <p class="text-center"><%= i %>位</p>
               <ul class="list-inline text-center">
                 <li class="set_star" data-score="<%= ranking_reviews[book.id].to_f.to_s %>"></li>
               </ul>
